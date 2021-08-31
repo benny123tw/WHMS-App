@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>AT Easy Poster</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://kit.fontawesome.com/6cf9917472.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <div class="container is-max-desktop">
+    <div class="notification is-primary">
+      This container has a <code>max-width</code> of <code>$desktop - $container-offset</code> on widescreen and fullhd.
+    </div>
+  </div>
+  <div class="field">
+    <p class="control has-icons-left has-icons-right">
+      <input class="input" type="email" placeholder="Account">
+      <span class="icon is-small is-left">
+        <i class="fas fa-user"></i>
+      </span>
+      <span class="icon is-small is-right">
+        <i class="fas fa-check"></i>
+      </span>
+    </p>
+  </div>
+  <div class="field">
+    <p class="control has-icons-left">
+      <input class="input" type="password" placeholder="Password">
+      <span class="icon is-small is-left">
+        <i class="fas fa-lock"></i>
+      </span>
+    </p>
+  </div>
+  <div class="container is-max-desktop">
+    <div class="block">
+      <h1 class="title">User Name</h1>
+      <div class="select is-rounded is-small">
+        <select name="username-selector" id="username-selector">User Name</select>
+      </div>
+    </div>
+    <div class="block">      
+      <div class="select is-rounded is-small">
+        <select name="project-selector" id="project-selector">Projects</select>
+      </div>
+    </div>
+    <div class="block">
+      <input type="date" name="date-start" id="date-start">
+      <input type="date" name="date-end" id="date-end">
+    </div>
+    <div class="block">
+      <select name="pass-vac-selector" id="pass-vac-selector">
+        <option value="true" selected>True</option>
+        <option value="false">False</option>
+      </select>
+    </div>
+    <div class="field">
+      <div class="control">
+        <textarea class="textarea is-small" name="content-editor" id="content-editor" cols="50" rows="20"></textarea>
+      </div>
+    </div>
+
+    <button class="button is-primary" id="save">Save</button>
+  </div>
+  <!-- You can also require other files to run in this process -->
+  <script src="./dist/renderer.js"></script>
+</body>
+
+</html>
