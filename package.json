@@ -1,7 +1,7 @@
 {
   "name": "whms-app",
   "productName": "WHMS",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A Gui for WHMS",
   "main": "./dist/main.js",
   "scripts": {
@@ -11,14 +11,14 @@
     "lint": "eslint -c .eslintrc --ext .ts ./src",
     "start": "npm run clean && npm run build && electron .",
     "dev": "electron ./dist/main.js",
-    "dist": "electron-builder",
-    "pack": "electron-builder --dir",
-    "publish": "electron-builder build -p always"
+    "dist": "npm run build && electron-builder",
+    "pack": "npm run build && electron-builder --dir",
+    "publish": "npm run build && electron-builder build -p always"
   },
   "repository": "https://github.com/benny123tw/work-hour-system",
   "keywords": [
   ],
-  "author": "GitHub",
+  "author": "Benny123tw",
   "license": "CC0-1.0",
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^4.29.2",
@@ -50,7 +50,7 @@
     },
     "extraResources": [
       "./data/**",
-      "./assets/**"
+      "./assets/images/**"
     ],
     "publish": [
       {

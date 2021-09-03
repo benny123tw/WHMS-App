@@ -5,11 +5,11 @@ ipcRenderer.on("message", (event, data) => {
     if (typeof data === "string") {
         message.innerText = data;
     } else {
-        const progressBar = document.getElementById("progressBar");
+        const progressBar: HTMLProgressElement = document.querySelector("#progressBar");
         const percentText = document.getElementById("percentText");
         const sizeText = document.getElementById("sizeText");
         message.innerText = 'Download Speed:' + formatBytes(data.bytesPerSecond);
-        progressBar.style.width = data.percent + '%';
+        progressBar.value = data.percent;
         percentText.innerText = `${data.percent.toFixed(1)}%`; 
         sizeText.innerText = `${formatBytes(data.transferred)} / ${formatBytes(data.total)}`
     }

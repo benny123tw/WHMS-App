@@ -17,7 +17,7 @@ log.info(
 
 const assetsPath = app.isPackaged
   ? path.join(process.resourcesPath, "assets")
-  : "assets";
+  : path.join("assets");
 const ICON_PATH = path.join(assetsPath, "16x16.png");
 
 function createWindow() {
@@ -68,7 +68,8 @@ const createLoadingScreen = () => {
     })
   );
   loadingScreen.setResizable(false);
-  loadingScreen.loadFile(path.join(process.cwd(), "src", "updater", "updater.html"))
+  loadingScreen.loadFile(path.join(__dirname, "..", "src", "updater", "updater.html"));
+  console.log(path.join(__dirname))
   loadingScreen.on("closed", (): void => (loadingScreen = null));
   loadingScreen.webContents.on("did-finish-load", () => {
     loadingScreen.show();
