@@ -6,7 +6,7 @@ import * as log from 'electron-log';
 import * as chalk from 'chalk';
 import { autoUpdater } from "electron-updater";
 
-require('./save');
+
 
 if (process.platform === "win32") process.stdout.isTTY = true; // for windows terminal print color Style
 
@@ -15,16 +15,19 @@ log.info(
   `${chalk.cyan(`Platform: ${chalk.bgRedBright(`${process.platform}`)}`)}`
 );
 
+const assetsPath = app.isPackaged
+  ? path.join(process.resourcesPath, "assets")
+  : "assets";
+const ICON_PATH = path.join(assetsPath, "16x16.png");
+
 function createWindow() {
-  log.info(
-    `${chalk.cyan(`App version: ${chalk.bgRedBright(`${app.getVersion()}`)}`)}`
-  );
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     height: 600,
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
     },
+    icon: ICON_PATH,
     width: 800,
     minHeight: 600,
     minWidth: 800,
@@ -34,7 +37,15 @@ function createWindow() {
   mainWindow.loadFile(path.join(__dirname, "../index.html"));
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+  // mainWindow.webContents.openDevTools();
+
+  mainWindow.webContents.on("did-finish-load", () => {
+    /// then close the loading screen window and show the main window
+    if (loadingScreen) {
+      loadingScreen.close();
+    }
+    mainWindow.show();
+  });
 }
 
 let loadingScreen: BrowserWindow | null = null;
@@ -46,7 +57,7 @@ const createLoadingScreen = () => {
       /// define width and height for the window
       width: 300, // default 300
       height: 350, // default 350
-      // icon: ICON_PATH,
+      icon: ICON_PATH,
       /// remove the window frame, so it will become a frameless window
       frame: false,
       /// and set the transparency, to remove any window background color
@@ -57,18 +68,22 @@ const createLoadingScreen = () => {
     })
   );
   loadingScreen.setResizable(false);
-  loadingScreen.loadFile(path.join(process.cwd(), "update", "updater.html"))
+  loadingScreen.loadFile(path.join(process.cwd(), "src", "updater", "updater.html"))
   loadingScreen.on("closed", (): void => (loadingScreen = null));
   loadingScreen.webContents.on("did-finish-load", () => {
     loadingScreen.show();
-    // checkForUpdates();
     autoUpdater.checkForUpdates();
   });
 };
 
 app.on("ready", () => {
-  // createLoadingScreen();
-  createWindow();
+
+  log.info(
+    `${chalk.cyan(`App version: ${chalk.bgRedBright(`${app.getVersion()}`)}`)}`
+  );
+
+  createLoadingScreen();
+  // createWindow();
 
   app.on("activate", function () {
     // On macOS it's common to re-create a window in the app when the
@@ -117,5 +132,5 @@ autoUpdater.on("update-downloaded", (info) => {
 });
 
 /** Event  */
-import { eventInit } from './event/getter';
-eventInit();
+require('./events/whmsEvents');
+require('./events/save');
