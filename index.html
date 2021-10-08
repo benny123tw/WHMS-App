@@ -3,34 +3,116 @@
 
 <head>
   <meta charset="UTF-8" />
-  <title>AT Easy Poster</title>
+  <title>懶人工時系統</title>
   <link rel="stylesheet" href="./styles/css/style.css">
   <script src="https://kit.fontawesome.com/6cf9917472.js" crossorigin="anonymous"></script>
+
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+
+  <!-- date range picker and multiple date picker -->
+  <script src="pacakges/DatePicker/moment.min.js"></script>
+  <script src="pacakges/DatePicker/daterangepicker.js"></script>
+  <link rel="stylesheet" href="pacakges/DatePicker/daterangepicker.css">
+
+  <!-- drop down list with search bar -->
+  <script src="pacakges/selectize/selectize.js"></script>
+  <link rel="stylesheet" href="pacakges/selectize/selectize.css" />
+
+  <!-- You can also require other files to run in this process -->
+  <script src="js/datePicker.js" defer></script>  
+  <script src="./dist/renderer.js" defer></script>
 </head>
 
 <body style="-webkit-app-region: drag;">
-  <div id="out-container" class="">
-    <h1 class="title has-text-centered">Form</h1>
-    <div class="select is-rounded is-small">
-      <select name="username-selector" id="username-selector">User Name</select>
+  <div class="net-wrapper" style="display: none;">
+    <div class="toast">
+      <div class="content is-marginless">
+        <div class="icon"><i class="fas fa-wifi"></i></div>
+        <div class="details">
+          <span>You're online now</span>
+          <p>Hurray! Internet is connected.</p>
+        </div>
+      </div>
+      <button class="delete"></button>
     </div>
-    <div class="select is-rounded is-small">
-      <select name="project-selector" id="project-selector">Projects</select>
-    </div>
-    <input type="date" name="date-start" id="date-start">
-    <input type="date" name="date-end" id="date-end">
-    <select name="pass-vac-selector" id="pass-vac-selector">
-      <option value="true" selected>True</option>
-      <option value="false">False</option>
-    </select>
-    <div class="control">
-      <textarea class="textarea" name="content-editor" id="content-editor" cols="50" rows="20"></textarea>
-    </div>
-    <button class="button is-primary" id="save">Save</button>
   </div>
 
-  <!-- You can also require other files to run in this process -->
-  <script src="./dist/renderer.js"></script>
+  <div class="wrapper">
+    <div class="form box">
+      <div class="field">
+        <label class="label">姓名</label>
+        <div class="control is-loading" name="selector-wrapper">
+          <select class="input" id="username-selector" style="width: 100%;">
+            <option value="">無</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">日期</label>
+        <div class="control has-icons-left has-icons-right">
+          <!-- <input class="input is-success" type="text" placeholder="Text input" value="bulma"> -->
+          <input class="input" id="daterange" type="text" name="daterange"/>
+          <span class="icon is-small is-left">
+            <i class="fa fa-calendar"></i>
+          </span>
+          <span class="icon is-small is-right">
+            <i class="fa fa-caret-down"></i>
+          </span>
+        </div>
+        
+        <label class="checkbox">
+          <input id="passHoliday" type="checkbox" checked>
+          略過假日
+        </label>
+      </div>
+
+      <div class="field">
+        <label class="label">排除日期</label>
+        <div class="control has-icons-left has-icons-right">
+          <input class="input" type="text" id="mdp">
+          <span class="icon is-small is-left">
+            <i class="fa fa-calendar"></i>
+          </span>
+          <span class="icon is-small is-right">
+            <i class="fa fa-caret-down"></i>
+          </span>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">專案</label>
+        <div class="control is-loading" name="selector-wrapper">
+            <select class="input" id="project-selector" style="width: 100%;">
+              <option value="">無</option>
+            </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">內容</label>
+        <div class="control">
+          <textarea class="textarea" id="content-editor" placeholder="Textarea"></textarea>
+        </div>
+      </div>
+
+      <div class="field is-grouped">
+        <div class="control">
+          <button class="button is-success" id="save-btn" disabled>
+            <span class="icon is-small">
+              <i class="fas fa-check"></i>
+            </span>
+            <span>送出</span>
+          </button>
+        </div>
+        <!-- <div class="control">
+          <button class="button is-link is-light">取消</button>
+        </div> -->
+      </div>
+
+
+    </div>
+  </div>
 </body>
 
 </html>

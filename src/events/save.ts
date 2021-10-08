@@ -11,13 +11,13 @@ const CONFIG_PATH = path.join(dataPath, 'config.json');
 ipcMain.on('save-dialog', async (event, data) => {
     const file = await dialog.showSaveDialog({
         title: "Select File",
-
     })
 });
 
-ipcMain.on('save-to-web', async (event, data: UploadConfigSchema) => {
-    writeFileSync(CONFIG_PATH, JSON.stringify(data, null, 2));
-    const res = await whms.upload(data);
+ipcMain.on('save-to-web', async (event, data: string) => {
+    const config: UploadConfigSchema = JSON.parse(data);
+    writeFileSync(CONFIG_PATH, data);
+    const res = await whms.upload(config);
     console.log(res)
     event.sender.send('save-to-web');
 });

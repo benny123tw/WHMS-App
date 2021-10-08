@@ -1,7 +1,7 @@
 {
   "name": "whms-app",
   "productName": "WHMS",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A Gui for WHMS",
   "main": "./dist/main.js",
   "scripts": {
@@ -10,17 +10,19 @@
     "watch": "tsc -w",
     "lint": "eslint -c .eslintrc --ext .ts ./src",
     "start": "npm run clean && npm run build && electron .",
-    "dev": "electron ./dist/main.js",
+    "dev": "electron .",
     "dist": "npm run build && electron-builder",
     "pack": "npm run build && electron-builder --dir",
-    "publish": "npm run build && electron-builder build -p always"
+    "publish": "npm run build && electron-builder build -p always",
+    "sass": "sass --watch ./styles/sass/style.scss ./styles/css/style.css"
   },
   "repository": "https://github.com/benny123tw/work-hour-system",
-  "keywords": [
-  ],
+  "keywords": [],
   "author": "Benny123tw",
   "license": "CC0-1.0",
   "devDependencies": {
+    "@types/jquery": "^3.5.6",
+    "@types/selectize": "^0.12.35",
     "@typescript-eslint/eslint-plugin": "^4.29.2",
     "@typescript-eslint/parser": "^4.29.2",
     "electron": "^13.1.8",
@@ -36,9 +38,12 @@
     "electron-log": "^4.4.1",
     "electron-updater": "^4.3.9",
     "fs": "*",
+    "html-pdf-node": "^1.0.7",
+    "is-online": "^9.0.1",
+    "jquery": "^3.6.0",
     "path": "^0.12.7",
     "rimraf": "^3.0.2",
-    "whms": "^1.0.3"
+    "whms": "^1.0.9"
   },
   "build": {
     "appId": "com.benny.app",

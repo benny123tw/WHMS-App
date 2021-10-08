@@ -4,7 +4,7 @@ import * as path from "path";
 
 import * as log from 'electron-log';
 import * as chalk from 'chalk';
-import { autoUpdater } from "electron-updater";
+import { autoUpdater,  } from "electron-updater";
 
 
 
@@ -23,13 +23,13 @@ const ICON_PATH = path.join(assetsPath, "16x16.png");
 function createWindow() {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    height: 600,
+    height: 750,
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
     },
     icon: ICON_PATH,
     width: 800,
-    minHeight: 600,
+    minHeight: 750,
     minWidth: 800,
   });
 
@@ -109,9 +109,11 @@ autoUpdater.on("checking-for-update", () => {
 });
 autoUpdater.on("update-available", (info) => {
   sendStatusToWindow("Update available.");
+  console.log(info)
 });
 autoUpdater.on("update-not-available", (info) => {
   sendStatusToWindow("STARTING...");
+  console.log(info)
   createWindow();
 });
 autoUpdater.on("error", (error) => {
