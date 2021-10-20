@@ -1,28 +1,43 @@
 import { ipcMain, dialog, app } from 'electron';
-import { readFileSync, writeFileSync } from 'fs';
+import { mkdir, writeFile } from 'fs/promises';
 import * as path from 'path';
 import whms, { UploadConfigSchema } from 'whms';
 
 const dataPath = app.isPackaged
     ? path.join(process.resourcesPath, "data")
     : "data";
-const CONFIG_PATH = path.join(dataPath, 'config.json');
+const CONFIG_PATH = path.join(process.cwd(), dataPath, 'config.json');
 
-ipcMain.on('save-dialog', async (event, data) => {
-    const file = await dialog.showSaveDialog({
-        title: "Select File",
-    })
-});
-
-ipcMain.on('save-to-web', async (event, data: string) => {
+ipcMain.handle('save-to-web', async (event, data: string) => {
+    let result = false;
     const config: UploadConfigSchema = JSON.parse(data);
-    writeFileSync(CONFIG_PATH, data);
+    // const response = await outputFile(CONFIG_PATH, data);
+    // if (!response.result) return false;
+
     const res = await whms.upload(config);
     console.log(res)
-    event.sender.send('save-to-web');
+    if (res.length) 
+        result = true;
+
+    return result;
 });
 
-ipcMain.on('load-config', async (event) => {
-    const file = readFileSync(CONFIG_PATH);
-    const config: UploadConfigSchema = JSON.parse(file.toString(),);
-});
+async function outputFile(path: string, data: any, options?: any) {
+    if (typeof path != "string") return;
+
+    const dir = path.slice(0, path.lastIndexOf("\\") + 1);
+    let result: boolean, error: Error;
+    try {
+        await mkdir(dir, { recursive: true });
+        await writeFile(path, data, options);
+        result = true;
+    } catch (err) {
+        error = err;
+        result = false;
+    } 
+
+    return {
+        result: result,
+        error: error
+    }
+}

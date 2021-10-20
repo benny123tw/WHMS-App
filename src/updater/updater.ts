@@ -6,6 +6,7 @@ ipcRenderer.on("message", (event, data) => {
         message.innerText = data;
     } else {
         const progressBar: HTMLProgressElement = document.querySelector("#progressBar");
+        progressBar.style.display = "block";
         const percentText = document.getElementById("percentText");
         const sizeText = document.getElementById("sizeText");
         message.innerText = 'Download Speed:' + formatBytes(data.bytesPerSecond);

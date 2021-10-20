@@ -108,6 +108,9 @@ $("body").on("DOMNodeInserted", "success", function () {
   });
   userSelector = $select2[0].selectize;
 
+  if (window.localStorage.getItem("name"))
+    userSelector.setValue(window.localStorage.getItem("name"));
+
   safeCheckSetup();
 });
 
@@ -118,8 +121,14 @@ function safeCheckSetup() {
     ".selectize-control .selectize-input.input"
   ); //first input = username
 
-  saveBtn.disabled = true;
-  inputDiv.classList.add("is-danger");
+  if (!userList.value) {
+    saveBtn.disabled = true;
+    inputDiv.classList.add("is-danger");
+  } else {
+    saveBtn.disabled = false;
+    inputDiv.classList.remove("is-danger");
+    inputDiv.classList.add("is-success");
+  }
 
   userList.onchange = function () {
     console.log("change");

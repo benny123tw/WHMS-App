@@ -10,10 +10,10 @@ export async function checkOnline() {
       // console.log("can't connect to 192.168.8.188:8088");
       return false;
     }
-  } else {
-    console.log('is offline')
-    return false;
   }
+  
+  console.log('is offline')
+  return false;
 }
 
 export async function checkLocalHost() {
@@ -24,7 +24,6 @@ export async function checkLocalHost() {
   } catch (error) {
     // console.log("can't connect to 192.168.8.188:8088");
     result = false;
-  } finally {
-    return result;
   }
+  return result;
 }

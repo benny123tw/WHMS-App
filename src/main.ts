@@ -84,7 +84,6 @@ app.on("ready", () => {
   );
 
   createLoadingScreen();
-  // createWindow();
 
   app.on("activate", function () {
     // On macOS it's common to re-create a window in the app when the
@@ -102,7 +101,7 @@ app.on("window-all-closed", () => {
 function sendStatusToWindow(text: string) {
   log.info(`${chalk.greenBright(`${text}`)}`);
   loadingScreen.webContents.send("message", text);
-}
+}  
 
 autoUpdater.on("checking-for-update", () => {
   sendStatusToWindow("Checking for update...");
@@ -113,7 +112,6 @@ autoUpdater.on("update-available", (info) => {
 });
 autoUpdater.on("update-not-available", (info) => {
   sendStatusToWindow("STARTING...");
-  console.log(info)
   createWindow();
 });
 autoUpdater.on("error", (error) => {

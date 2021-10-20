@@ -14,21 +14,11 @@ window.addEventListener("DOMContentLoaded", async () => {
             dataInit();
             firstConnectStatus = true;
         }
-    }, 10000);
+    }, 3000);
 
     if (firstConnectStatus) {
         dataInit();
     }
-});
-
-ipcRenderer.on('save-to-web', (e, response) => {
-    const saveBtn: HTMLButtonElement = document.querySelector('#save-btn');
-    saveBtn.classList.remove('is-loading');
-
-    // if (response.isSuccess)
-    createNotification('is-success', '工時資料上傳成功!');
-    // else
-    //     createNotification('is-danger', '無法連接至http://192.168.8.188:8088/')
 });
 
 let firstTime = true;
@@ -54,6 +44,9 @@ function onlineToast(isOnline: boolean) {
         toast.classList.add("offline");
         title.innerText = "連線失敗";
         subTitle.innerText = "請確認是否正確連線到AT！";
+        closeIcon.onclick = () => { //hide toast notification on close icon click
+            wrapper.classList.add("hide");
+        }
 
         saveBtn.disabled = true;
         saveBtn.onclick = null;
@@ -175,5 +168,17 @@ const getConfigValue = () => {
         passHoliday: passHoliday.checked,
         exclude: excludeDates.value.split(', ')
     }
-    ipcRenderer.send('save-to-web', JSON.stringify(data, null, 2));
+    ipcRenderer.invoke('save-to-web', JSON.stringify(data, null, 2)).then(
+        (response) => {
+            const saveBtn: HTMLButtonElement = document.querySelector('#save-btn');
+            saveBtn.classList.remove('is-loading');
+
+            if (response)
+                createNotification('is-success', '工時資料上傳成功!');
+            else
+                createNotification('is-danger', '工時資料上傳失敗!');
+
+            window.localStorage.setItem("name", userList.value);
+        }
+    );
 }
