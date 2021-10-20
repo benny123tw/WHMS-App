@@ -3,5 +3,9 @@ dist
 assets
 publish
 css
+.vscode
 
 pacakge-lock.json
+dev-app-update.yml
+
+.eslintrc

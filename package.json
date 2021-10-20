@@ -57,13 +57,14 @@
     },
     "extraResources": [
       "./data/**",
-      "./assets/images/**"
+      "./Noto_Sans_TC",
+      "./assets/**"
     ],
     "publish": [
       {
         "provider": "github",
         "owner": "benny123tw",
-        "repo": "work-hour-system"
+        "repo": "WHMS-App"
       }
     ],
     "win": {
