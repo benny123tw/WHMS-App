@@ -98,6 +98,10 @@ app.on("window-all-closed", () => {
   }
 });
 
+ipcMain.handle("app-isPackaged", () => {
+  return app.isPackaged;
+})
+
 function sendStatusToWindow(text: string) {
   log.info(`${chalk.greenBright(`${text}`)}`);
   loadingScreen.webContents.send("message", text);

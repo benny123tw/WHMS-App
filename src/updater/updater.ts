@@ -1,4 +1,5 @@
-import { ipcRenderer } from "electron/renderer";
+import { ipcRenderer, app } from "electron";
+import { join } from "path";
 
 ipcRenderer.on("message", (event, data) => {
     const message = document.getElementById("message");
@@ -27,3 +28,8 @@ function formatBytes(bytes: number, decimals = 2) {
 
     return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
 }
+
+window.addEventListener("DOMContentLoaded", async () => {
+    const logo: HTMLImageElement = document.querySelector('#logo');
+    logo.src = await ipcRenderer.invoke("app-isPackaged") ? join(app.getAppPath(), 'resources/assets/ATinfo03.svg') : join(process.cwd(), 'assets/ATinfo03.svg');
+});

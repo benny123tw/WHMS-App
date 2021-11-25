@@ -1,16 +1,16 @@
 {
   "name": "whms-app",
   "productName": "WHMS",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A Gui for WHMS",
   "main": "./dist/main.js",
   "scripts": {
     "clean": "rimraf ./dist",
     "build": "tsc",
     "watch": "tsc -w",
+    "dev": "nodemon --exec electron .",
     "lint": "eslint -c .eslintrc --ext .ts ./src",
     "start": "npm run clean && npm run build && electron .",
-    "dev": "electron .",
     "dist": "npm run build && electron-builder",
     "pack": "npm run build && electron-builder --dir",
     "publish": "npm run build && electron-builder build -p always",
@@ -43,9 +43,10 @@
     "fs": "*",
     "is-online": "^9.0.1",
     "jquery": "^3.6.0",
+    "nodemon": "^2.0.14",
     "path": "^0.12.7",
     "rimraf": "^3.0.2",
-    "whms": "^1.0.9"
+    "whms": "^1.1.0"
   },
   "build": {
     "appId": "com.benny.app",

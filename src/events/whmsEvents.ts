@@ -1,7 +1,7 @@
 import { ipcMain } from 'electron';
 import whms from 'whms';
 
-ipcMain.handle('get-employee', async (e, d) => {
+ipcMain.handle('get-employees', async (e, d) => {
     const response = await whms.get({
         method: 'getEmployees',
         data: {

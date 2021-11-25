@@ -110,9 +110,8 @@ function createNotification(flag: string, message: string,) {
 }
 
 async function dataInit() {
-    console.time("get")
     const userSelector: HTMLSelectElement = document.querySelector('#username-selector');
-    const pendingList = [ipcRenderer.invoke('get-employee'), ipcRenderer.invoke('get-projects')];
+    const pendingList = [ipcRenderer.invoke('get-employees'), ipcRenderer.invoke('get-projects')];
     const result = await Promise.all(pendingList);
     const employeeList: Array<Employee> = result[0];
     employeeSelectorInit(userSelector, employeeList);
@@ -123,13 +122,12 @@ async function dataInit() {
 
     dataGetSuccess();
     // safeCheckSetup();
-    console.timeEnd("get");
 }
 
 const employeeSelectorInit = (selector: HTMLSelectElement, list: Employee[]) => {
     for (let i = 0; i < list.length; i++) {
         const option = document.createElement('option');
-        option.value = list[i].account;
+        option.value = (String)(list[i].id);
         option.title = list[i].name;
         // option.selected = i == 0 ? true : false; // TODO: select storage name
         option.textContent = list[i].name + '  ' + list[i].account;
@@ -160,7 +158,8 @@ const getConfigValue = () => {
     const excludeDates: HTMLInputElement = document.querySelector('#mdp');
     const passHoliday: HTMLInputElement = document.querySelector('#passHoliday');
     const data: UploadConfigSchema = {
-        employeeAccount: userList.value,
+        id: userList.value,
+        employeeAccount: userList.innerText.split(/ +/)[1],
         content: textArea.value || '',
         projectCode: projectList.value,
         dateStart: startDate,
@@ -168,6 +167,7 @@ const getConfigValue = () => {
         passHoliday: passHoliday.checked,
         exclude: excludeDates.value.split(', ')
     }
+    
     ipcRenderer.invoke('save-to-web', JSON.stringify(data, null, 2)).then(
         (response) => {
             const saveBtn: HTMLButtonElement = document.querySelector('#save-btn');

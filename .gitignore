@@ -4,8 +4,9 @@ assets
 publish
 css
 .vscode
+Noto_Sans_TC
 
-pacakge-lock.json
+package-lock.json
 dev-app-update.yml
 
 .eslintrc
