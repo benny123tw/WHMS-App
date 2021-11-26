@@ -46,7 +46,7 @@
     "nodemon": "^2.0.14",
     "path": "^0.12.7",
     "rimraf": "^3.0.2",
-    "whms": "^1.1.0"
+    "whms": "^1.1.1"
   },
   "build": {
     "appId": "com.benny.app",
