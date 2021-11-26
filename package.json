@@ -50,7 +50,7 @@
   },
   "build": {
     "appId": "com.benny.app",
-    "productName": "Work Hour Management System",
+    "productName": "懶人工時系統",
     "copyright": "Copyright © 2021  ${author}",
     "directories": {
       "buildResources": "assets",
@@ -60,6 +60,17 @@
       "./data/**",
       "./Noto_Sans_TC",
       "./assets/**"
+    ],
+    "files": [
+      "!dev-app-update.yml",
+      "!publish/**",
+      "!.vscode",
+      "!src/**.ts",
+      "!.eslintrc",
+      "!.gitignore",
+      "!.pacakge-lock.json",
+      "!yarn.lock",
+      "!tsconfig.json"
     ],
     "publish": [
       {
@@ -84,7 +95,7 @@
       "createDesktopShortcut": "always",
       "createStartMenuShortcut": true,
       "menuCategory": true,
-      "shortcutName": "WHMS"
+      "shortcutName": "懶人工時系統"
     }
   }
 }
